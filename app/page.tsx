@@ -7,7 +7,7 @@ import { useContext } from "react";
 export default function Home() {
   const [user]: any = useContext(UserContext);
   return (
-    <main>
+    <main className=" max-w-screen-lg mx-auto h-24 flex items-center">
       {user?.loading ? (
         <Loading />
       ) : user?.issuer ? (

@@ -53,7 +53,7 @@ const Callback: React.FC = ({ searchParams }: any) => {
     if (res.status === 200) {
       // Set the UserContext to the now logged in user
       let userMetadata: any = await magicIns.user.getMetadata();
-      await setUser(userMetadata);
+      await setUser({ user: userMetadata });
       router.push("/profile");
     }
   };

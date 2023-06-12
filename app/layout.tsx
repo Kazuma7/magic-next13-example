@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { UserProvider } from "@/providers/UserProvider";
 import "@/styles/globals.css";
 
@@ -14,7 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body>{children}</body>
+        <body>
+          <Header />
+          {children}
+        </body>
       </UserProvider>
     </html>
   );

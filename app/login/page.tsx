@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useEffect, useContext } from "react";
-import Router from "next/router";
 import { UserContext } from "@/context/UserContext";
 import { Magic } from "magic-sdk";
 import { magic } from "@/lib/magic";
 import EmailForm from "@/components/EmailForm";
 import SocialLogins from "@/components/SocialLogins";
+import { useRouter } from "next/navigation";
 
 const magicIns: Magic = magic as any;
 
 const Login = () => {
   const [disabled, setDisabled] = useState(false);
   const [user, setUser]: any = useContext(UserContext);
+  const router = useRouter();
 
   // Redirec to /profile if the user is logged in
   useEffect(() => {
-    user?.issuer && Router.push("/profile");
+    user?.issuer && router.push("/profile");
   }, [user]);
 
   async function handleLoginWithEmail(email: any) {
@@ -39,40 +40,27 @@ const Login = () => {
       });
 
       if (res.status === 200) {
-        // Set the UserContext to the now logged in user
         let userMetadata = await magicIns.user.getMetadata();
-        await setUser(userMetadata);
-        Router.push("/profile");
+        await setUser({ user: userMetadata });
+        router.push("/profile");
       }
     } catch (error) {
-      setDisabled(false); // re-enable login button - user may have requested to edit their email
+      setDisabled(false);
       console.log(error);
     }
   }
 
   async function handleLoginWithSocial(provider: any) {
     await (magicIns.oauth as any).loginWithRedirect({
-      provider, // google, apple, etc
-      redirectURI: new URL("/callback", window.location.origin).href, // required redirect to finish social login
+      provider,
+      redirectURI: new URL("/callback", window.location.origin).href,
     });
   }
 
   return (
-    <div className="login">
+    <div className="max-w-sm shadow-md mx-auto border p-4 text-center rounded-2xl mt-12">
       <EmailForm disabled={disabled} onEmailSubmit={handleLoginWithEmail} />
       <SocialLogins onSubmit={handleLoginWithSocial} />
-      <style jsx>{`
-        .login {
-          max-width: 20rem;
-          margin: 40px auto 0;
-          padding: 1rem;
-          border: 1px solid #dfe1e5;
-          border-radius: 4px;
-          text-align: center;
-          box-shadow: 0px 0px 6px 6px #f7f7f7;
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 };
