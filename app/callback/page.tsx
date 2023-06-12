@@ -7,18 +7,11 @@ import { magic } from "@/lib/magic";
 import Loading from "@/components/Loading";
 import { UserContext } from "@/context/UserContext";
 
-// If magic is not properly typed you may need to cast it as any.
-// In a real-world application, you'd want to replace any with the actual type of the imported magic instance.
 const magicIns: Magic = magic as any;
-
-type UserMetadata = {
-  issuer?: string;
-  // include additional properties as needed
-};
 
 const Callback: React.FC = ({ searchParams }: any) => {
   const router = useRouter();
-  const [user, setUser]: any = useContext(UserContext);
+  const [setUser]: any = useContext(UserContext);
 
   // The redirect contains a `provider` query param if the user is logging in with a social provider
   useEffect(() => {
@@ -51,7 +44,6 @@ const Callback: React.FC = ({ searchParams }: any) => {
     console.log(res);
 
     if (res.status === 200) {
-      // Set the UserContext to the now logged in user
       let userMetadata: any = await magicIns.user.getMetadata();
       await setUser({ user: userMetadata });
       router.push("/profile");

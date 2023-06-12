@@ -17,7 +17,7 @@ const Login = () => {
 
   // Redirec to /profile if the user is logged in
   useEffect(() => {
-    user?.issuer && router.push("/profile");
+    user?.user?.issuer && router.push("/profile");
   }, [user]);
 
   async function handleLoginWithEmail(email: any) {
