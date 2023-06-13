@@ -12,7 +12,7 @@ const magicIns: Magic = magic as any;
 
 const Login = () => {
   const [disabled, setDisabled] = useState(false);
-  const [user, setUser]: any = useContext(UserContext);
+  const { user, setUser }: any = useContext(UserContext);
   const router = useRouter();
 
   // Redirec to /profile if the user is logged in

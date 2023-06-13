@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const magicIns: Magic = magic as any;
 
 const Header = () => {
-  const [user, setUser]: any = useContext(UserContext);
+  const { user, setUser }: any = useContext(UserContext);
   const router = useRouter();
 
   const logout = () => {

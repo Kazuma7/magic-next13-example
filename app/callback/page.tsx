@@ -11,7 +11,7 @@ const magicIns: Magic = magic as any;
 
 const Callback: React.FC = ({ searchParams }: any) => {
   const router = useRouter();
-  const [setUser]: any = useContext(UserContext);
+  const { setUser }: any = useContext(UserContext);
 
   // The redirect contains a `provider` query param if the user is logging in with a social provider
   useEffect(() => {
@@ -41,7 +41,6 @@ const Callback: React.FC = ({ searchParams }: any) => {
         Authorization: "Bearer " + didToken,
       },
     });
-    console.log(res);
 
     if (res.status === 200) {
       let userMetadata: any = await magicIns.user.getMetadata();

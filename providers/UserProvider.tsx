@@ -38,7 +38,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   }, [router]);
 
   return (
-    <UserContext.Provider value={[user, setUser] as any}>
+    <UserContext.Provider value={{ user, setUser } as any}>
       {children}
     </UserContext.Provider>
   );

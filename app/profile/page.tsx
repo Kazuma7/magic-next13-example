@@ -5,8 +5,7 @@ import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
 
 export default function Home() {
-  const [user]: any = useContext(UserContext);
-  console.log(user);
+  const { user }: any = useContext(UserContext);
 
   return (
     <div className="max-w-screen-lg mx-auto mt-4">
